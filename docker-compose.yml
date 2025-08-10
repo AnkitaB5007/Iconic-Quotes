@@ -1,0 +1,29 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: quotes_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - quotes_data:/var/lib/mysql
+    restart: always
+  
+  web:
+    build: .
+    container_name: quotes_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    restart: always
+
+
+volumes:
+  quotes_data:
