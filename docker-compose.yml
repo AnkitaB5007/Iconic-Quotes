@@ -12,6 +12,8 @@ services:
     volumes:
       - quotes_data:/var/lib/mysql
     restart: always
+    networks:
+      - quotes_network
   
   web:
     build: .
@@ -23,7 +25,11 @@ services:
     env_file:
       - .env
     restart: always
-
+    networks:
+      - quotes_network
 
 volumes:
   quotes_data:
+
+networks:
+  quotes_network:
