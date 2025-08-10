@@ -17,10 +17,19 @@ app = Flask(__name__)
 
 # Configure the database connection using environment variables
 # The format is 'mysql+pymysql://user:password@host/database_name'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+database_url = os.getenv(
     'DATABASE_URL',
-    'mysql+pymysql://user:password@localhost/quotes_db'
+    'mysql+pymysql://localhost/quotes_db'
 )
+if "@" not in database_url:
+    url_parts = database_url.split("://", maxsplit=1)
+    assert len(url_parts) == 2, "Invalid DATABASE_URL format. Expected format: 'mysql+pymysql://host/database_name'"
+    username = os.getenv("MYSQL_USER")
+    assert username, "MYSQL_USER environment variable is not set."
+    password = os.getenv("MYSQL_PASSWORD")
+    assert password, "MYSQL_PASSWORD environment variable is not set."
+    url_with_credentials = f"{url_parts[0]}://{username}:{password}@{url_parts[1]}"
+app.config['SQLALCHEMY_DATABASE_URI'] = url_with_credentials
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the SQLAlchemy database instance
