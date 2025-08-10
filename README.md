@@ -12,6 +12,7 @@ MYSQL_USER=admin
 MYSQL_PASSWORD=admin
 ```
 ### Docker Setup
+The docker-compose.yml file defines the two services needed for the application to run: the web service (your Flask app) and the db service (the MySQL database).
 To run the application, you can use Docker. Make sure you have Docker installed and then run the following commands:
 ```bash
 docker-compose up -d

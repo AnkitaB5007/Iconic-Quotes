@@ -21,7 +21,9 @@ database_url = os.getenv(
     'DATABASE_URL',
     'mysql+pymysql://localhost/quotes_db'
 )
-if "@" not in database_url:
+if "@" in database_url:
+    url_with_credentials = database_url
+else:
     url_parts = database_url.split("://", maxsplit=1)
     assert len(url_parts) == 2, "Invalid DATABASE_URL format. Expected format: 'mysql+pymysql://host/database_name'"
     username = os.getenv("MYSQL_USER")
@@ -261,13 +263,14 @@ EDIT_QUOTE_TEMPLATE = """
 
 # Sample movie and show quotes to populate the database initially
 SAMPLE_QUOTES = [
-    {"text": "May the Force be with you.", "source": "Star Wars", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Star+Wars"},
-    {"text": "I'm the king of the world!", "source": "Titanic", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Titanic"},
-    {"text": "Here's looking at you, kid.", "source": "Casablanca", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Casablanca"},
-    {"text": "Houston, we have a problem.", "source": "Apollo 13", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Apollo+13"},
-    {"text": "My precious.", "source": "The Lord of the Rings", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Lord+of+the+Rings"},
-    {"text": "Elementary, my dear Watson.", "source": "Sherlock Holmes", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Sherlock+Holmes"},
-    {"text": "Live long and prosper.", "source": "Star Trek", "background_image_url": "https://placehold.co/1920x1080/000000/FFFFFF?text=Star+Trek"},
+    {"text": "May the Force be with you.", "source": "Star Wars", "background_image_url": "https://media.printables.com/media/prints/5322/images/34243_38525894-79c4-48db-99b9-7782e2723276/thumbs/inside/1280x960/jpg/20190824172724_019184.webp"},
+    {"text": "I'm the king of the world!", "source": "Titanic", "background_image_url": "https://wallpaper_finder.s3.amazonaws.com/wallpapers/thumbs_2/titanic-movie-poster.jpg"},
+    {"text": "Here's looking at you, kid.", "source": "Casablanca", "background_image_url": "https://images6.alphacoders.com/128/1287639.jpg"},
+    {"text": "Houston, we have a problem.", "source": "Apollo 13", "background_image_url": "https://images7.alphacoders.com/797/797526.jpg"},
+    {"text": "My precious.", "source": "The Lord of the Rings", "background_image_url": "https://images4.alphacoders.com/794/thumb-1920-794765.jpg"},
+    {"text": "Elementary, my dear Watson.", "source": "Sherlock Holmes", "background_image_url": "https://images8.alphacoders.com/491/491597.jpg"},
+    {"text": "Live long and prosper.", "source": "Star Trek", "background_image_url": "https://c4.wallpaperflare.com/wallpaper/344/782/350/star-trek-star-trek-the-motion-picture-wallpaper-preview.jpg"},
+    {"text": "Run, you clever boy, and remember...", "source": "~Clara Oswald, Doctor Who", "background_image_url": "https://c4.wallpaperflare.com/wallpaper/996/700/1005/tv-show-doctor-who-clara-oswald-jenna-coleman-wallpaper-preview.jpg"},
 ]
 
 
@@ -375,4 +378,4 @@ if __name__ == '__main__':
             db.session.commit()
 
     # Run the Flask development server
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
