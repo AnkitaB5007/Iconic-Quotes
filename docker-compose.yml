@@ -21,7 +21,7 @@ services:
       retries: 5
   
   web:
-    build: .
+    image: anbe00007/quotes_app:latest
     container_name: quotes_app
     ports:
       - "5000:5000"
