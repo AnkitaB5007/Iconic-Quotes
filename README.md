@@ -5,7 +5,7 @@ Iconic dialogues from popular movies and shows.
 Create a .env file in the root directory with the following content:
 ```
 # .env
-DATABASE_URL=mysql+pymysql://user:password@db/quotes_db
+DATABASE_URL=mysql+pymysql://db/quotes_db
 MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=quotes_db
 MYSQL_USER=admin
@@ -19,6 +19,10 @@ docker-compose up -d
 ```
 This will start the MySQL database and the Flask application in detached mode.
 
+### To remove all containers, networks, and volumes
+```bash
+docker-compose down -v
+```
 
 #### Find out the dependencies and their version numbers
 Add ipython to the list of dependencies in `flake.nix` and then run the following command to check the version of Flask:
