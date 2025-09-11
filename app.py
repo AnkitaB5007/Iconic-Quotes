@@ -76,7 +76,7 @@ INDEX_TEMPLATE = """
     <div class="container mx-auto p-4 md:p-8 text-center relative z-10">
         <header class="mb-12">
             <h1 class="text-4xl font-bold text-gray-50 mb-2">Iconic Quotes from Movies & Shows</h1>
-            <p class="text-lg text-gray-400">A collection of memorable dialogues.</p>
+            <p class="text-lg text-gray-400">A collection of memorable & popular dialogues.</p>
         </header>
 
         <main id="quote-container" class="bg-black bg-opacity-50 rounded-lg shadow-lg p-6 w-full max-w-xl mx-auto min-h-[200px] flex flex-col justify-center items-center transition-opacity duration-1000 ease-in-out">
