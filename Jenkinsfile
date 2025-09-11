@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "quotes_app:latest"
-        DOCKER_HUB_REPO = "${env.dockerHubUser}/quotes_app"
+        // DOCKER_HUB_REPO = "${env.dockerHubUser}/quotes_app"
         PROJECT_NAME = "quotes-cicd"
     }
 
@@ -36,15 +36,20 @@ pipeline {
                     passwordVariable: "dockerHubPass",
                     usernameVariable: "dockerHubUser"
                 )]) {
-                    echo 'Logging into Docker Hub...'
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                    
-                    echo 'Tagging and pushing image...'
-                    sh "docker tag ${DOCKER_IMAGE} ${DOCKER_HUB_REPO}:latest"
-                    sh "docker push ${DOCKER_HUB_REPO}:latest"
+                    script {
+                        def repo = "${dockerHubUser}/quotes_app"
+        
+                        echo "Logging into Docker Hub..."
+                        sh "docker login -u ${dockerHubUser} -p ${dockerHubPass}"
+        
+                        echo "Tagging and pushing image..."
+                        sh "docker tag ${DOCKER_IMAGE} ${repo}:latest"
+                        sh "docker push ${repo}:latest"
+                    }
                 }
             }
         }
+
 
         stage('Deploy with Docker Compose') {
             steps {
